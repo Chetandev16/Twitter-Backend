@@ -2,18 +2,23 @@ import express from 'express';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4'
 import bodyParser from 'body-parser';
-import { prisma } from '../clients/db';
+import cors from 'cors';
+import { user } from "./user"
 
 export async function initServer() {
     const app = express();
-    app.use(bodyParser.json()) 
+    app.use(bodyParser.json())
 
-    
+    app.use(cors({
+        origin: "*",
+        methods: ["GET", "POST", "PUT", "DELETE"]
+    }));
+
     const graphqlServer = new ApolloServer({
         typeDefs: `
+            ${user.types}
             type Query {
-                hello: String
-                sayHelloToMe(name: String!): String
+                ${user.queries}
             }
 
             type Mutation {
@@ -22,8 +27,7 @@ export async function initServer() {
         `,
         resolvers: {
             Query: {
-                hello: () => 'Hello world!',
-                sayHelloToMe: (parent: any, {name}:{name:string}) => `Hello ${name}`
+                ...user.resolvers.queries,
             },
             Mutation: {}
         }
