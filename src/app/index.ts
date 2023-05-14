@@ -7,8 +7,6 @@ import bodyParser from 'body-parser';
 
 export async function initServer() {
     const app = express();
-
-    app.use(express.json())
     app.use(bodyParser.json())
 
     const graphqlServer = new ApolloServer({
@@ -22,7 +20,9 @@ export async function initServer() {
             }
         `,
         resolvers: {
-            Query: {},
+            Query: {
+                hello: () => 'Hello world!'
+            },
             Mutation: {}
         }
     });
