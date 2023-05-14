@@ -1,0 +1,25 @@
+{
+  "name": "twitter-backend",
+  "version": "1.0.0",
+  "description": "Backend setup for Twitter full stack clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node build/index.js",
+    "build": "tsc -p .",
+    "dev": "concurrently \"tsc -w\" \"nodemon src/index.ts\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.0.1",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.7.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "graphql": "^16.6.0"
+  }
+}
